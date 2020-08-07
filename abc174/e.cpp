@@ -9,15 +9,14 @@ int main() {
   int n, k;
   cin >> n >> k;
   vector<int> logs;
-  int l = 0, r = 0;
+  int ng = 0, ok = 1e9;
   for (int i = 0; i < n; ++i) {
     int a;
     cin >> a;
-    r = max(r, a);
     logs.emplace_back(a);
   }
-  while (r - l > 1) {
-    int mid = (l + r) / 2;
+  while (ok - ng > 1) {
+    int mid = (ng + ok) / 2;
     int tryNum = 0;
     for (const auto& log : logs) {
       tryNum += (log - 1) / mid;
@@ -25,12 +24,12 @@ int main() {
         break;
       }
     }
-    if (tryNum > k) {
-      l = mid;
+    if (tryNum <= k) {
+      ok = mid;
     } else {
-      r = mid;
+      ng = mid;
     }
   }
-  cout << r << endl;
+  cout << ok << endl;
   return 0;
 }
