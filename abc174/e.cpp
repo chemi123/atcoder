@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cmath>
 
+// https://atcoder.jp/contests/arc032/tasks/arc032_2
+
 using namespace std;
 
 int main() {
