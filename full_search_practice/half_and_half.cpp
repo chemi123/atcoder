@@ -2,6 +2,8 @@
 
 using namespace std;
 
+// https://atcoder.jp/contests/abc095/tasks/arc096_a
+
 int main() {
   uint64_t a, b, c, x, y;
   cin >> a >> b >> c >> x >> y;
