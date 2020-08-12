@@ -45,7 +45,10 @@ int main() {
         break;
       }
     }
-    if (found) ans = make_pair(grid.first - baseGrid.first, grid.second - baseGrid.second);
+    if (found) {
+      ans = make_pair(grid.first - baseGrid.first, grid.second - baseGrid.second);
+      break;
+    }
   }
   cout << ans.first << " " << ans.second << endl;
 
