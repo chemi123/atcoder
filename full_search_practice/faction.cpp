@@ -15,6 +15,7 @@ int main() {
     combi[x][y] = true;
   }
   int ans = 1;
+  // 1からnまでの全ての組み合わせを試してみる
   for (int bit = 0; bit < (1 << n); ++bit) {
     vector<int> vec;
     for (int i = 0; i < n; ++i) {
