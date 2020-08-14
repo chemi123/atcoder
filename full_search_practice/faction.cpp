@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <bitset>
 
 using namespace std;
 
@@ -17,17 +18,25 @@ int main() {
   int ans = 1;
   // 1からnまでの全ての組み合わせを試してみる
   for (int bit = 0; bit < (1 << n); ++bit) {
-    vector<int> vec;
+    int t = bitset<32>(bit).count();
+    if (t <= ans) continue;
+
+    vector<int> set;
     for (int i = 0; i < n; ++i) {
-      if (bit & (1 << i)) vec.emplace_back(i+1);
+      if (bit & (1 << i)) set.emplace_back(i+1);
     }
+
     bool ok = true;
-    for (int i = 0; i < (int)vec.size()-1; ++i) {
-      for (int j = i + 1; j < (int)vec.size(); ++j) {
-        if (!combi[vec[i]][vec[j]]) ok = false;
+    for (int i = 0; i < set.size(); ++i) {
+      for (int j = i + 1; j < set.size(); ++j) {
+        if (!combi[set[i]][set[j]]) {
+          ok = false;
+          break;
+        }
       }
+      if (!ok) break;
     }
-    if (ok) ans = max(ans, (int)vec.size());
+    if (ok) ans = t;
   }
   cout << ans << endl;
   return 0;
