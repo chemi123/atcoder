@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// https://atcoder.jp/contests/joi2008yo/tasks/joi2008yo_d
+
 struct phash{
   inline size_t operator()(const pair<int,int> & p) const{
     const auto h1 = hash<int>()(p.first);
