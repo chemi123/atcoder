@@ -13,7 +13,5 @@ using namespace std;
 using ll = long long;
 
 int main() {
-  int n = 10;
-  debug("param: ", n);
   return 0;
 }
