@@ -10,6 +10,7 @@
 
 using namespace std;
 using ul = uint64_t;
+using ll = long long;
 
 int main() {
   return 0;
