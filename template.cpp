@@ -6,11 +6,11 @@
 #include <algorithm>
 #include <cmath>
 
+#define rep(i, n) for (int i = 0; i < n; ++i)
+#define debug(s, param) std::cerr << s << param << std::endl;
+
 using namespace std;
 using ll = long long;
-
-#define rep(i, n) for (int i = 0; i < n; ++i)
-#define debug(s, param) cerr << s << param << endl;
 
 int main() {
   int n = 10;
