@@ -32,7 +32,7 @@ int main() {
           maxH = a[i] + 1;
         }
       } else {
-        maxH = max(maxH, a[i]);
+        maxH = max(maxH, a[i] + 1);
       }
     }
     ans = min(ans, cost);
