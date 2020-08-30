@@ -34,10 +34,10 @@ int bfs(const vector<string>& grids, int& sr, int& sc, int strength, int h, int 
         return step;
       }
       rep (i, 4) {
-        if (row + delta[i][0] >= 0 && row + delta[i][0] < h && col + delta[i][1] >= 0 && col + delta[i][1] < w
-            && grids[row + delta[i][0]][col + delta[i][1]] != 'X' && !visit[row + delta[i][0]][col + delta[i][1]]) {
-          visit[row + delta[i][0]][col + delta[i][1]] = true;
-          q.emplace(row + delta[i][0], col + delta[i][1]);
+        int nextRow = row + delta[i][0], nextCol = col + delta[i][1];
+        if (0 <= nextRow && nextRow < h && 0 <= nextCol && nextCol < w && grids[nextRow][nextCol] != 'X' && !visit[nextRow][nextCol]) {
+          visit[nextRow][nextCol] = true;
+          q.emplace(nextRow, nextCol);
         }
       }
     }
