@@ -17,6 +17,8 @@ using ll = long long;
 
 const ll MOD = 1000000007;
 
+// https://www.ioi-jp.org/joi/2008/2009-ho-prob_and_sol/2009-ho.pdf#page=4
+
 int binarySearch(const vector<int>& s, int target) {
   int ok = (int)s.size(), ng = -1;
   while (ok - ng > 1) {
