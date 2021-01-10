@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <queue>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -14,55 +15,39 @@
 using namespace std;
 using ll = long long;
 
-// https://www.ioi-jp.org/joi/2008/2009-ho-prob_and_sol/2009-ho.pdf#page=4
+const ll MOD = 1000000007;
 
-int findLower(const vector<int>& shops, int dest) {
-  int ok = -1;
-  int ng = (int)shops.size();
-  while (abs(ok - ng) > 1) {
+int binarySearch(const vector<int>& s, int target) {
+  int ok = (int)s.size(), ng = -1;
+  while (ok - ng > 1) {
     int mid = (ok + ng) / 2;
-    if (shops[mid] == dest) return dest;
-    else if (shops[mid] > dest) ng = mid;
-    else ok = mid;
+    if (s[mid] == target) {
+      return mid;
+    } else if (s[mid] > target) {
+      ok = mid;
+    } else {
+      ng = mid;
+    }
   }
-  return shops[ok];
-}
-
-int findLarger(const vector<int>& shops, int dest) {
-  int ok = (int)shops.size();
-  int ng = -1;
-  while (abs(ok - ng) > 1) {
-    int mid = (ok + ng) / 2;
-    if (shops[mid] == dest) return dest;
-    else if (shops[mid] > dest) ok = mid;
-    else ng = mid;
-  }
-  return shops[ok];
+  return ok;
 }
 
 int main() {
   int d, n, m;
   cin >> d >> n >> m;
-  vector<int> shops;
-  shops.emplace_back(0);
-  shops.emplace_back(d);
-  rep (i, n-1) {
-    int x;
-    cin >> x;
-    shops.emplace_back(x);
-  }
-  sort(shops.begin(), shops.end());
-
-  vector<int> dests(m);
-  rep (i, m) cin >> dests[i];
-
-  int ans = 0;
+  vector<int> s(n, 0), t(m, 0);
+  for (int i = 1; i < n; ++i) cin >> s[i];
+  rep (i, m) cin >> t[i];
+  sort(s.begin(), s.end());
+  int res = 0;
   rep (i, m) {
-    int l = findLower(shops, dests[i]);
-    int r = findLarger(shops, dests[i]);
-    ans += min(abs(l - dests[i]), abs(r - dests[i]));
+    int index = binarySearch(s, t[i]);
+    if (index == (int)s.size()) {
+      res += min(abs(s[index-1]-t[i]), abs(d-t[i]));
+    } else {
+      res += min(abs(s[index-1]-t[i]), abs(s[index]-t[i]));
+    }
   }
-  cout << ans << endl;
-
+  cout << res << endl;
   return 0;
 }
