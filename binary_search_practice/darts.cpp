@@ -4,57 +4,66 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <queue>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
 #define rep(i, n) for (int i = 0; i < n; ++i)
 #define debug(s, param) std::cerr << s << param << std::endl;
-#define output(ans) std::cout << ans << std::endl;
 
 using namespace std;
 using ll = long long;
 
-// https://atcoder.jp/contests/joi2008ho/tasks/joi2008ho_c
+/*
+  問題: https://atcoder.jp/contests/joi2008ho/tasks/joi2008ho_c
 
-int binarySearch(const vector<int>& nums, int target) {
-  int ok = -1;
-  int ng = nums.size();
-  while(abs(ok - ng) > 1) {
+  考え方
+  ４回まで投げられるが、２回しか投げないのは4回投げたが2回は0点を取ったとしてしまう。
+  その上で全探索を行うとO(n^4)となり到底間に合わない。
+  なので2回投げた場合の得点を列挙し、その集合をSとする。これに必要な計算量(及び空間量)はO(n^2)となる。
+  そしてSを昇順ソートする。これは計算量はN^2logN^2=2N^2logN、つまりO(N^2logN)となる。
+  最後にソートされたSをイテレートし、それぞれの要素をaとした場合は残りの得点はM-aとなる。
+  Sから二分探索でM-a以下の最大の要素を探せば良い。これはO(N^2logN)の計算量で済む。
+  制約は0<=N<=1000であるため、十分間に合う。
+*/
+
+const ll MOD = 1000000007;
+
+int binarySearch(vector<int>& S, int target) {
+  int ok = 0, ng = (int)S.size();
+  while (abs(ok-ng) > 1) {
     int mid = (ok + ng) / 2;
-    if (nums[mid] == target) return nums[mid];
-    else if (nums[mid] < target) ok = mid;
-    else ng = mid;
+    if (S[mid] == target) {
+      return mid;
+    } else if (S[mid] < target) {
+      ok = mid;
+    } else {
+      ng = mid;
+    }
   }
-  if (ok == -1) return 0;
-  return nums[ok];
+  return ok;
 }
 
 int main() {
   int n, m;
   cin >> n >> m;
-  vector<int> nums(n, 0);
-  rep (i, n) cin >> nums[i];
-
-  rep (i, n) {
-    rep (j, n) {
-      int sum = nums[i] + nums[j];
-      if (sum == m) {
-        cout << m << endl;
-        return 0;
-      }
-      if (sum < m) nums.emplace_back(sum);
-    }
-  }
-  nums.emplace_back(0);
-  sort(nums.begin(), nums.end());
-
+  vector<int> points(n+1, 0);
+  for (int i = 1; i <= n; ++i) cin >> points[i];
+  vector<int> S;
+  S.reserve((n+1) * (n+1));
+  for (int i = 0; i <= n; ++i) for (int j = i; j <= n; ++j) S.emplace_back(points[i]+points[j]);
+  sort(S.begin(), S.end());
   int ans = 0;
-  n = (int)nums.size();
-  rep (i, n) {
-    int rest = m - nums[i];
-    ans = max(ans, nums[i] + binarySearch(nums, rest));
+  for (auto s : S) {
+    if (s > m) break;
+    int sum = s + S[binarySearch(S, m - s)];
+    if (sum == m) {
+      ans = sum;
+      break;
+    }
+    ans = max(ans, sum);
   }
-  output(ans);
+  cout << ans << endl;
   return 0;
 }
