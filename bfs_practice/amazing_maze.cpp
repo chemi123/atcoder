@@ -17,6 +17,8 @@ using ll = long long;
 
 const ll MOD = 1000000007;
 
+// http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1166&lang=jp
+
 int bfs(const vector<vector<int>>& vWalls, const vector<vector<int>>& hWalls, int row, int col) {
   queue<pair<int, int>> que;
   que.emplace(make_pair(0, 0));
