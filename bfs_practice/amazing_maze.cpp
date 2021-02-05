@@ -17,62 +17,47 @@ using ll = long long;
 
 const ll MOD = 1000000007;
 
-// http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1166&lang=jp
-
-int bfs(const vector<vector<int>>& vertical, const vector<vector<int>>& horizon, int h, int w) {
-  vector<vector<int>> deltas{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-  vector<vector<bool>> visit(h, vector<bool>(w, false));
-  queue<pair<int, int>> q;
+int bfs(const vector<vector<int>>& vWalls, const vector<vector<int>>& hWalls, int row, int col) {
+  queue<pair<int, int>> que;
+  que.emplace(make_pair(0, 0));
+  vector<pair<int, int>> drdc{make_pair(-1, 0), make_pair(1, 0), make_pair(0, -1), make_pair(0, 1)};
+  vector<vector<bool>> visit(row, vector<bool>(col, false));
   visit[0][0] = true;
-  q.emplace(0, 0);
-  auto isAvailable = [h, w](int row, int col){ return (row >= 0 && row < h && col >= 0 && col < w); };
-  int steps = 1;
-  while (!q.empty()) {
-    int size = (int)q.size();
-    for (int i = 0; i < size; ++i) {
-      int row = q.front().first, col = q.front().second;
-      q.pop();
-      if (row == h - 1 && col == w - 1) return steps;
-      for (const auto& delta : deltas) {
-        int dr = delta[0], dc = delta[1];
-        int nextRow = row + dr, nextCol = col + dc;
-        if (isAvailable(nextRow, nextCol) && !visit[nextRow][nextCol]) {
-          bool isPartitioned = false;
-          if (abs(dr) > 0) {
-            if (dr == 1) isPartitioned = (horizon[row][col] == 1);
-            else isPartitioned = (horizon[row-1][col] == 1);
-          } else {
-            if (dc == 1) isPartitioned = (vertical[row][col] == 1);
-            else isPartitioned = (vertical[row][col-1] == 1);
-          }
-          if (isPartitioned) continue;
-          visit[nextRow][nextCol] = true;
-          q.emplace(nextRow, nextCol);
-        }
+  int res = 1;
+  while (!que.empty()) {
+    int size = (int)que.size();
+    rep (i, size) {
+      auto [cr, cc] = que.front();
+      que.pop();
+      if (cr == row - 1 && cc == col - 1) return res;
+      for (auto [dr, dc] : drdc) {
+        int nr = cr + dr, nc = cc + dc;
+        if (nr < 0 || nr >= row || nc < 0 || nc >= col || visit[nr][nc]) continue;
+        if (dr == -1 && hWalls[cr-1][cc]) continue;
+        if (dr == 1 && hWalls[cr][cc]) continue;
+        if (dc == -1 && vWalls[cr][cc-1]) continue;
+        if (dc == 1 && vWalls[cr][cc]) continue;
+        que.emplace(make_pair(nr, nc));
+        visit[nr][nc] = true;
       }
     }
-    ++steps;
+    ++res;
   }
   return 0;
 }
 
 int main() {
   while (1) {
-    int w, h;
-    cin >> w >> h;
-    if (w == 0 && h == 0) break;
-    vector<vector<int>> vertical(h, vector<int>(w - 1));
-    vector<vector<int>> horizon(h - 1, vector<int>(w, 0));
-    int r = 0;
-    rep (i, h * 2 - 1) {
-      if (i % 2 == 0) {
-        rep (j, w - 1) cin >> vertical[r][j];
-      } else {
-        rep (j, w) cin >> horizon[r][j];
-        ++r;
-      }
+    int row, col;
+    cin >> col >> row;
+    if (row == 0 && col == 0) break;
+    vector<vector<int>> vWalls(row, vector<int>(col-1, 0));
+    vector<vector<int>> hWalls(row-1, vector<int>(col, 0));
+    rep (i, row) {
+      rep (j, col-1) cin >> vWalls[i][j];
+      if (i < row - 1) rep (j, col) cin >> hWalls[i][j];
     }
-    cout << bfs(vertical, horizon, h, w) << endl;
+    cout << bfs(vWalls, hWalls, row, col) << endl;;
   }
   return 0;
 }
