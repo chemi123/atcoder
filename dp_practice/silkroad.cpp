@@ -22,16 +22,18 @@ const ll MOD = 1000000007;
 int main() {
   int n, m;
   cin >> n >> m;
-  vector<int> d(n+1), c(m+1);
-  rep (i, n) cin >> d[i+1];
-  rep (i, m) cin >> c[i+1];
-  vector<vector<int>> dp(n+1, vector<int>(m+1, 1e9));
-  rep (i, m+1) dp[0][i] = 0;
-  for (int i = 1; i <= n; ++i) {
-    for (int j = 0; j < m; ++j) {
-      dp[i][j+1] = min(dp[i-1][j] + d[i]*c[j+1], dp[i][j]);
+  vector<int> d(n), c(m);
+  rep (i, n) cin >> d[i];
+  rep (i, m) cin >> c[i];
+  vector<vector<int>> dp(m, vector<int>(n+1, 1e9));
+  dp[0][1] = d[0] * c[0];
+  rep (i, m) dp[i][0] = 0;
+  rep (i, m-1) {
+    rep (j, n) {
+      if (dp[i][j] == 1e9) break;
+      dp[i+1][j+1] = min(dp[i][j+1], dp[i][j] + c[i+1] * d[j]);
     }
   }
-  cout << dp[n][m] << endl;
+  cout << dp[m-1][n] << endl;
   return 0;
 }
