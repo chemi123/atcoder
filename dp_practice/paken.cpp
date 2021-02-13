@@ -45,8 +45,6 @@ int main() {
     dp[i+1][1] = min(dp[i][0] + 5 - b, dp[i][2] + 5 - b);
     dp[i+1][2] = min(dp[i][0] + 5 - w, dp[i][1] + 5 - w);
   }
-  int ans = 1e9;
-  rep (i, 3) ans = min(ans, dp[n-1][i]);
-  cout << ans << endl;
+  cout << min({dp[n-1][0], dp[n-1][1], dp[n-1][2]}) << endl;
   return 0;
 }
