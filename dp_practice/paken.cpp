@@ -22,24 +22,31 @@ const ll MOD = 1000000007;
 int main() {
   int n;
   cin >> n;
-  vector<string> s(5);
-  rep (i, 5) cin >> s[i];
-  vector<vector<int>> dp(n+1, vector<int>(3));
-  for (int i = 1; i <= n; ++i) {
-    int red = 0, white = 0, blue = 0;
-    rep (j, 5) {
-      if (s[j][i-1] == 'R') ++red;
-      if (s[j][i-1] == 'W') ++white;
-      if (s[j][i-1] == 'B') ++blue;
-    }
-    for (int j = 0; j < 3; ++j) {
-      if (j == 0) dp[i][j] = min(dp[i-1][1] + 5 - red, dp[i-1][2] + 5 - red);
-      if (j == 1) dp[i][j] = min(dp[i-1][0] + 5 - white, dp[i-1][2] + 5 - white);
-      if (j == 2) dp[i][j] = min(dp[i-1][0] + 5 - blue, dp[i-1][1] + 5 - blue);
-    }
+  vector<string> flags(5, "");
+  rep (i, 5) cin >> flags[i];
+  vector<string> vFlags(n, "");
+  rep (i, n) rep (j, 5) vFlags[i] += flags[j][i];
+  vector<vector<int>> dp(n, vector<int>(3, 0));
+  int r = 0, b = 0, w = 0;
+  rep (i, 5) {
+    if (vFlags[0][i] == 'R') ++r;
+    if (vFlags[0][i] == 'B') ++b;
+    if (vFlags[0][i] == 'W') ++w;
   }
-  int res = 1e9;
-  for (auto e : dp[n]) res = min(res, e);
-  cout << res << endl;
+  dp[0][0] = 5 - r, dp[0][1] = 5 - b, dp[0][2] = 5 - w;
+  rep (i, n-1) {
+    r = 0, b = 0, w = 0;
+    rep (j, 5) {
+      if (vFlags[i+1][j] == 'R') ++r;
+      if (vFlags[i+1][j] == 'B') ++b;
+      if (vFlags[i+1][j] == 'W') ++w;
+    }
+    dp[i+1][0] = min(dp[i][1] + 5 - r, dp[i][2] + 5 - r);
+    dp[i+1][1] = min(dp[i][0] + 5 - b, dp[i][2] + 5 - b);
+    dp[i+1][2] = min(dp[i][0] + 5 - w, dp[i][1] + 5 - w);
+  }
+  int ans = 1e9;
+  rep (i, 3) ans = min(ans, dp[n-1][i]);
+  cout << ans << endl;
   return 0;
 }
