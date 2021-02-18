@@ -17,86 +17,53 @@ using ll = long long;
 
 const ll MOD = 10000;
 
-// https://atcoder.jp/contests/joi2012yo/tasks/joi2012yo_d
-
 int main() {
   int n, k;
   cin >> n >> k;
-  vector<int> s(n+1);
-  rep (i, k) {
-    int d, t;
-    cin >> d >> t;
-    s[d] = t;
+  unordered_map<int, int> ump;
+  rep (i, n) {
+    int d;
+    cin >> d;
+    cin >> ump[d];
   }
-  vector<vector<int>> dp(n+1, vector<int>(7, 0));
-  if (s[1] > 0) dp[1][s[1]] = 1;
-  else  dp[1][1] = 1, dp[1][2] = 1, dp[1][3] = 1;
-
+  vector<vector<int>> dp(n+1, vector<int>(6, 0));
+  auto it = ump.find(1);
+  if (it != ump.end()) dp[1][it->second-1] = 1;
+  else dp[1][0] = 1, dp[1][1] = 1, dp[1][2] = 1;
   for (int i = 1; i < n; ++i) {
-    for (int j = 1; j <= 6; ++j) {
-      if (dp[i][j] == 0) continue;
-      switch (j) {
-        case 1:
-          if (s[i+1] > 0) {
-            if (s[i+1] == 1) dp[i+1][4] = (dp[i+1][4] + dp[i][j]) % MOD;
-            else dp[i+1][s[i+1]] = (dp[i+1][s[i+1]] + dp[i][j]) % MOD;
-          } else {
-            dp[i+1][2] = (dp[i+1][2] + dp[i][j]) % MOD;
-            dp[i+1][3] = (dp[i+1][3] + dp[i][j]) % MOD;
-            dp[i+1][4] = (dp[i+1][4] + dp[i][j]) % MOD;
-          }
-          break;
-        case 2:
-          if (s[i+1] > 0) {
-            if (s[i+1] == 2) dp[i+1][5] = (dp[i+1][5] + dp[i][j]) % MOD;
-            else dp[i+1][s[i+1]] = (dp[i+1][s[i+1]] + dp[i][j]) % MOD;
-          } else {
-            dp[i+1][1] = (dp[i+1][1] + dp[i][j]) % MOD;
-            dp[i+1][3] = (dp[i+1][3] + dp[i][j]) % MOD;
-            dp[i+1][5] = (dp[i+1][5] + dp[i][j]) % MOD;
-          }
-          break;
-        case 3:
-          if (s[i+1] > 0) {
-            if (s[i+1] == 3) dp[i+1][6] = (dp[i+1][6] + dp[i][j]) % MOD;
-            else dp[i+1][s[i+1]] = (dp[i+1][s[i+1]] + dp[i][j]) % MOD;
-          } else {
-            dp[i+1][1] = (dp[i+1][1] + dp[i][j]) % MOD;
-            dp[i+1][2] = (dp[i+1][2] + dp[i][j]) % MOD;
-            dp[i+1][6] = (dp[i+1][6] + dp[i][j]) % MOD;
-          }
-          break;
-        case 4:
-          if (s[i+1] > 0) {
-            if (s[i+1] != 1) dp[i+1][s[i+1]] = (dp[i+1][s[i+1]] + dp[i][j]) % MOD;
-          } else {
-            dp[i+1][2] = (dp[i+1][2] + dp[i][j]) % MOD;
-            dp[i+1][3] = (dp[i+1][3] + dp[i][j]) % MOD;
-          }
-          break;
-        case 5:
-          if (s[i+1] > 0) {
-            if (s[i+1] != 2) dp[i+1][s[i+1]] = (dp[i+1][s[i+1]] + dp[i][j]) % MOD;
-          } else {
-            dp[i+1][1] = (dp[i+1][1] + dp[i][j]) % MOD;
-            dp[i+1][3] = (dp[i+1][3] + dp[i][j]) % MOD;
-          }
-          break;
-        case 6:
-          if (s[i+1] > 0) {
-            if (s[i+1] != 3) dp[i+1][s[i+1]] = (dp[i+1][s[i+1]] + dp[i][j]) % MOD;
-          } else {
-            dp[i+1][1] = (dp[i+1][1] + dp[i][j]) % MOD;
-            dp[i+1][2] = (dp[i+1][2] + dp[i][j]) % MOD;
-          }
-          break;
+    it = ump.find(i+1);
+    if (it != ump.end()) {
+      if (it->second == 1) {
+        dp[i+1][0] += (dp[i][1] + dp[i][2] + dp[i][4] + dp[i][5]);
+        dp[i+1][3] += dp[i][0];
+        dp[i+1][0] %= MOD;
+        dp[i+1][3] %= MOD;
+      } else if (it->second == 2) {
+        dp[i+1][1] += (dp[i][0] + dp[i][2] + dp[i][3] + dp[i][5]);
+        dp[i+1][4] += dp[i][1];
+        dp[i+1][1] %= MOD;
+        dp[i+1][4] %= MOD;
+      } else {
+        dp[i+1][2] += (dp[i][0] + dp[i][1] + dp[i][3] + dp[i][4]);
+        dp[i+1][5] += dp[i][2];
+        dp[i+1][2] %= MOD;
+        dp[i+1][5] %= MOD;
       }
+      continue;
     }
+    dp[i+1][0] += (dp[i][1] + dp[i][2] + dp[i][4] + dp[i][5]);
+    dp[i+1][1] += (dp[i][0] + dp[i][2] + dp[i][3] + dp[i][5]);
+    dp[i+1][2] += (dp[i][0] + dp[i][1] + dp[i][3] + dp[i][4]);
+    dp[i+1][3] += dp[i][0];
+    dp[i+1][4] += dp[i][1];
+    dp[i+1][5] += dp[i][2];
+    rep (j, 6) dp[i+1][j] %= MOD;
   }
-  int res = 0;
-  for (int j = 1; j <= 6; ++j) {
-    res = (res + dp[n][j]) % MOD;
+  int ans = 0;
+  rep (i, 6) {
+    ans += dp[n][i];
+    ans %= MOD;
   }
-  cout << res << endl;
+  cout << ans << endl;
   return 0;
 }
