@@ -22,15 +22,16 @@ const ll MOD = 1000000007;
 int main() {
   int n;
   cin >> n;
-  vector<int> r(n+1, 0);
-  rep (i, n) cin >> r[i] >> r[i+1];
+  vector<int> rows(n, 0), cols(n, 0);
+  rep (i, n) cin >> rows[i] >> cols[i];
   vector<vector<int>> dp(n, vector<int>(n, 1e9));
   rep (i, n) dp[i][i] = 0;
-  rep (i, n-1) dp[i][i+1] = r[i] * r[i+1] * r[i+2];
+  rep (i, n-1) dp[i][i+1] = rows[i] * cols[i] * cols[i+1];
   for (int i = 2; i < n; ++i) {
-    for (int j = 0; j < n - i; ++j) {
-      for (int k = j; k < i + j; ++k) {
-        dp[j][i+j] = min(dp[j][i+j], dp[j][k] + dp[k+1][i+j] + r[j] * r[k+1] * r[i+j+1]);
+    for (int l = 0; l < n - i; ++l) {
+      int r = l + i;
+      for (int mid = l; mid < r; ++mid) {
+        dp[l][r] = min(dp[l][r], dp[l][mid] + dp[mid+1][r] + rows[l] * rows[mid+1] * cols[r]);
       }
     }
   }
