@@ -10,6 +10,7 @@
 #include <vector>
 
 #define rep(i, n) for (int i = 0; i < n; ++i)
+#define reps(i, n, s) for (int i = s; i < n; i++)
 #define debug(s, param) std::cerr << s << param << std::endl;
 
 using namespace std;
