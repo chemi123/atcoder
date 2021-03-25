@@ -19,6 +19,5 @@ using ll = long long;
 const ll MOD = 1000000007;
 
 int main() {
-  reps (i, 1, 10) cout << i << endl;
   return 0;
 }
