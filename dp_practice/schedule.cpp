@@ -40,7 +40,9 @@ int main() {
     if (schedule[i] == 'I') responsibility = 2;
     rep (S1, 1 << 3) {
       rep (S2, 1 << 3) {
+        // 前日いた人が誰も当日にいない場合は鍵を持ってこれないためスケジュールを組めない
         if ((S1 & S2) == 0) continue;
+        // 当日の責任者がいない場合はスケジュールを組めない
         if ((S2 >> responsibility & 1) == 0) continue;
         add(dp[i+1][S2], dp[i][S1]);
       }
