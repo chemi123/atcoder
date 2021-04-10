@@ -10,11 +10,13 @@
 #include <vector>
 
 #define rep(i, n) for (int i = 0; i < n; ++i)
+#define reps(i, s, n) for (int i = s; i < n; i++)
 #define debug(s, param) std::cerr << s << param << std::endl;
 
 using namespace std;
 using ll = long long;
 
+const int INF = 1e9;
 const ll MOD = 1000000007;
 
 // http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D&lang=ja
@@ -22,17 +24,14 @@ const ll MOD = 1000000007;
 int main() {
   int n;
   cin >> n;
-  vector<int> seqs(n, 0);
-  rep (i, n) cin >> seqs[i];
-  vector<int> dp(1, seqs[0]);
-  for (int i = 1; i < n; ++i) {
+  vector<int> a(n, 0);
+  rep (i, n) cin >> a[i];
+  vector<int> dp(1, a[0]);
+  dp.reserve(n);
+  reps (i, 1, n) {
     int lastIndex = (int)dp.size() - 1;
-    if (dp[lastIndex] < seqs[i]) {
-      dp.emplace_back(seqs[i]);
-    } else {
-      auto it = lower_bound(dp.begin(), dp.end(), seqs[i]);
-      *it = seqs[i];
-    }
+    if (dp[lastIndex] < a[i]) dp.emplace_back(a[i]);
+    else *lower_bound(dp.begin(), dp.end(), a[i]) = a[i];
   }
   cout << dp.size() << endl;
   return 0;
