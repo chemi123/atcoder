@@ -30,13 +30,9 @@ int main() {
   vector<int> dp(1, trump[0]);
   dp.reserve(n);
   reps (i, 1, n) {
-    if (dp[(int)dp.size()-1] < trump[i]) {
-      dp.emplace_back(trump[i]);
-    } else {
-      *lower_bound(dp.begin(), dp.end(), trump[i]) = trump[i];
-    }
+    if (dp[(int)dp.size()-1] < trump[i]) dp.emplace_back(trump[i]);
+    else *lower_bound(dp.begin(), dp.end(), trump[i]) = trump[i];
   }
-  for (auto e : dp) cout << e << " "; cout << endl;
   cout << n - (int)dp.size() << endl;
   return 0;
 }
