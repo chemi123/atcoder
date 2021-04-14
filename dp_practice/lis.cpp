@@ -29,8 +29,7 @@ int main() {
   vector<int> dp(1, a[0]);
   dp.reserve(n);
   reps (i, 1, n) {
-    int lastIndex = (int)dp.size() - 1;
-    if (dp[lastIndex] < a[i]) dp.emplace_back(a[i]);
+    if (dp.back() < a[i]) dp.emplace_back(a[i]);
     else *lower_bound(dp.begin(), dp.end(), a[i]) = a[i];
   }
   cout << dp.size() << endl;
