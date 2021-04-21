@@ -16,6 +16,7 @@
 
 using namespace std;
 using ll = long long;
+using pi = pair<int, int>;
 
 const int INF = 1e9;
 const ll INFL = 1e15;
