@@ -16,31 +16,30 @@
 
 using namespace std;
 using ll = long long;
+using pi = pair<int, int>;
 
 const int INF = 1e9;
 const ll INFL = 1e15;
 const ll MOD = 1000000007;
 
-// https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja
-
 int main() {
-  int v, e, r;
-  cin >> v >> e >> r;
-  vector<vector<pair<int, int>>> graph(v);
+  int v, e, r; cin >> v >> e >> r;
+  vector<vector<pi>> graph(v);
   rep (i, e) {
-    int s, t, d;
-    cin >> s >> t >> d;
-    graph[s].emplace_back(make_pair(d, t));
+    int s, t, d; cin >> s >> t >> d;
+    graph[s].emplace_back(pi(d, t));
   }
-  priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-  pq.emplace(make_pair(0, r));
+  priority_queue<pi, vector<pi>, greater<pi>> pq;
   vector<int> dijk(v, INF);
+  pq.emplace(pi(0, r));
   while (!pq.empty()) {
-    auto [d, t] = pq.top();
-    pq.pop();
-    if (dijk[t] <= d) continue;
-    dijk[t] = d;
-    for (auto [dist, next] : graph[t]) pq.emplace(make_pair(dist + dijk[t], next));
+    auto [cost, current] = pq.top(); pq.pop();
+    if (dijk[current] <= cost) continue;
+    dijk[current] = cost;
+    for (auto [d, next] : graph[current]) {
+      if (d + cost >= dijk[next]) continue;
+      pq.emplace(pi(d + cost, next));
+    }
   }
   for (auto e : dijk) {
     if (e == INF) cout << "INF" << endl;
