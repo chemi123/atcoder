@@ -20,7 +20,7 @@ using pi = pair<int, int>;
 using pl = pair<ll, ll>;
 
 const int INF = 1e9;
-const ll INFL = 1e15;
+const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
 int main() {
