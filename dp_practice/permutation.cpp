@@ -53,7 +53,7 @@ int main() {
       dp[S | 1 << i] += dp[S];
     }
   }
-  cout << dp[(1 << n) - 1] << endl;
+  cout << dp.back() << endl;
 
   return 0;
 }
