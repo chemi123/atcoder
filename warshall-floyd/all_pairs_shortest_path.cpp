@@ -48,15 +48,11 @@ int main() {
   }
   rep (i, v) {
     rep (j, v) {
-      if (j == v - 1) {
-        if (graph[i][j] == INFL) cout << "INF";
-        else cout << graph[i][j];
-      } else {
-        if (graph[i][j] == INFL) cout << "INF" << " ";
-        else cout << graph[i][j] << " ";
-      }
+      if (graph[i][j] == INFL) cout << "INF";
+      else cout << graph[i][j];
+      if (j == v - 1) cout << endl;
+      else cout << " ";
     }
-    cout << endl;
   }
   return 0;
 }
