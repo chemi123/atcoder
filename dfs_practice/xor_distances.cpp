@@ -23,6 +23,8 @@ const int INF = 1e9;
 const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
+// https://atcoder.jp/contests/abc201/tasks/abc201_e
+
 // 木の頂点からそれぞれの点までの重みをxorした際に、bit表現で1桁目が1の数をreturn
 // xは頂点からxorしてきた時の現在の点の値(0 or 1になる、頂点は0として考える)
 ll dfs(const vector<vector<pl>>& graph, ll x, ll current, ll parent) {
