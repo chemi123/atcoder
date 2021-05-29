@@ -23,6 +23,8 @@ const int INF = 1e9;
 const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
+// https://atcoder.jp/contests/abc112/tasks/abc112_c
+
 int main() {
   int n; cin >> n;
   vector<int> x(n), y(n), h(n);
