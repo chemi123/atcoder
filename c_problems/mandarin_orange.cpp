@@ -28,13 +28,10 @@ const ll MOD = 1000000007;
 
 int main() {
   int n; cin >> n;
-  vector<int> a(n), indices;
-  rep (i, n) {
-    cin >> a[i];
-    if (i == 0 || a[i] != a[i-1]) indices.emplace_back(i);
-  }
+  vector<int> a(n);
+  rep (i, n) cin >> a[i];
   int ans = 0;
-  for (auto l : indices) {
+  rep (l, n) {
     int sum = 0, x = a[l];
     reps (r, l, n) {
       x = min(x, a[r]);
