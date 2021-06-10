@@ -35,8 +35,7 @@ int main() {
     int sum = 0, x = a[l];
     reps (r, l, n) {
       x = min(x, a[r]);
-      sum = (r - l + 1) * x;
-      ans = max(ans, sum);
+      ans = max(ans, (r - l + 1) * x);
     }
   }
   cout << ans << endl;
