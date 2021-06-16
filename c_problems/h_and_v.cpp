@@ -31,29 +31,14 @@ int main() {
   vector<string> graph(h);
   rep (i, h) cin >> graph[i];
   int ans = 0;
-  rep (i, (1 << h)) {
-    vector<int> hBits(h);
-    rep (bit, h) {
-      if (i >> bit & 1) hBits[bit] = 1;
-      else hBits[bit] = 0;
+  rep (i, 1 << h) rep (j, 1 << w) {
+    int cnt = 0;
+    rep (row, h) rep (col, w) {
+      if (i >> row & 1) continue;
+      if (j >> col & 1) continue;
+      if (graph[row][col] == '#') ++cnt;
     }
-
-    rep (j, (1 << w)) {
-      vector<int> wBits(w);
-      rep (bit, w) {
-        if (j >> bit & 1) wBits[bit] = 1;
-        else wBits[bit] = 0;
-      }
-
-      int sum = 0;
-      rep (row, h) {
-        if (hBits[row]) continue;
-        rep (col, w) {
-          if (!wBits[col] && graph[row][col] == '#') ++sum;
-        }
-      }
-      if (sum == k) ++ans;
-    }
+    if (cnt == k) ++ans;
   }
   cout << ans << endl;
   return 0;
