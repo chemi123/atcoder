@@ -6,6 +6,7 @@
 #include <numeric>
 #include <set>
 #include <sstream>
+#include <stack>
 #include <queue>
 #include <unordered_map>
 #include <unordered_set>
