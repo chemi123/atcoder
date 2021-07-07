@@ -1,0 +1,54 @@
+#include <algorithm>
+#include <bitset>
+#include <cmath>
+#include <iomanip>
+#include <iostream>
+#include <numeric>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <queue>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
+#define rep(i, n) for (int i = 0; i < n; ++i)
+#define reps(i, s, n) for (int i = s; i < n; i++)
+#define debug(s, param) std::cerr << s << param << std::endl;
+
+using namespace std;
+using ll = long long;
+using pi = pair<int, int>;
+using pl = pair<ll, ll>;
+
+const int INF = 1e9;
+const ll INFL = 1e18;
+const ll MOD = 1000000007;
+
+// https://atcoder.jp/contests/abc107/tasks/abc107_b
+
+int main() {
+  int h, w; cin >> h >> w;
+  vector<string> grid(h);
+  rep (i, h) cin >> grid[i];
+
+  vector<string> tmpGrid;
+  rep (i, h) {
+    bool ok = false;
+    rep (j, w) if (grid[i][j] == '#') ok = true;
+    if (ok) tmpGrid.emplace_back(grid[i]);
+  }
+  grid = tmpGrid;
+  h = grid.size();
+
+  vector<bool> oks(w);
+  rep (i, w) rep (j, h) if (grid[j][i] == '#') oks[i]= true;
+
+  rep (i, h) {
+    string tmp;
+    rep (j, w) if (oks[j]) tmp += grid[i][j];
+    cout << tmp << endl;
+  }
+
+  return 0;
+}
