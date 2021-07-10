@@ -62,10 +62,10 @@ int main() {
       --p;
       int point = (d - j) * 100;
       if (point * p + sum >= g) {
-        int i = 1;
-        for (; i < p; ++i) if (point * i + sum >= g) break;
-        sum += point * i;
-        cnt += i;
+        int k = 1;
+        for (; k < p; ++k) if (point * k + sum >= g) break;
+        sum += point * k;
+        cnt += k;
         break;
       } else {
         sum += point * p;
