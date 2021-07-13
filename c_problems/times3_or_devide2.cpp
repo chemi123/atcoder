@@ -32,8 +32,7 @@ int main() {
   int ans = 0;
   rep (i, n) {
     int a; cin >> a;
-    while (1) {
-      if (a % 2 == 1) break;
+    while (a % 2 == 0) {
       ++ans;
       a /= 2;
     }
