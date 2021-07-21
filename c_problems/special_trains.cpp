@@ -35,7 +35,7 @@ int main() {
   rep (i, n - 1) {
     int ans = s[i] + c[i];
     reps (j, i + 1, n - 1) {
-      while (ans % f[j] != 0) ++ans;
+      if (ans % f[j] != 0) ans += f[j] - ans % f[j];
       if (ans < s[j]) ans = s[j];
       ans += c[j];
     }
