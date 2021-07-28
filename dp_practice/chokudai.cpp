@@ -29,7 +29,7 @@ const ll MOD = 1000000007;
 
 int main() {
   string s; cin >> s;
-  vector<char> chokudai{'c', 'h', 'o', 'k', 'u', 'd', 'a', 'i'};
+  string chokudai = "chokudai";
 
   vector<vector<int>> dp(8, vector<int>((int)s.size(), 0));
   if (s[0] == chokudai[0]) dp[0][0] = 1;
