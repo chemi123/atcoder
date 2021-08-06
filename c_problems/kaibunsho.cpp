@@ -37,9 +37,7 @@ int main() {
     vector<int> tmp(size);
     rep (j, s.size()) ++tmp[s[j]-'a'];
     if (i == 0) m = tmp;
-    else {
-      rep (j, size) m[j] = min(m[j], tmp[j]);
-    }
+    else rep (j, size) m[j] = min(m[j], tmp[j]);
   }
   string ans;
   rep (i, size) if (m[i] > 0) rep (j, m[i]) ans += (char)(i + 'a');
