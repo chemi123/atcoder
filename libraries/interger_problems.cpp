@@ -6,8 +6,8 @@ using ll = long long;
 
 using namespace std;
 
-// 素数列挙
-void enumeratePrime(map<ll, ll>& m, ll n) {
+// 素因数分解
+void primeFactorization(map<ll, ll>& m, ll n) {
   for (int i = 2; i * i <= n; ++i) {
     if (n % i != 0) continue;
     ll cnt = 0;
@@ -33,7 +33,7 @@ void enumerateDivisor(set<ll>& m, ll n) {
 int main() {
   map<ll, ll> m1;
   ll n = 200;
-  enumeratePrime(m1, n);
+  primeFactorization(m1, n);
   for (auto [num, cnt] : m1) cout << num << ": " << cnt << endl; 
   cout << endl;
 
