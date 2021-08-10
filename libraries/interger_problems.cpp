@@ -18,7 +18,7 @@ void enumeratePrime(map<ll, ll>& m, ll n) {
     m[i] = cnt;
   }
 
-  if (n != 0) m[n] = 1;
+  if (n != 1) m[n] = 1;
 }
 
 // 約数列挙
