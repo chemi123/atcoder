@@ -26,8 +26,6 @@ const int INF = 1e9;
 const ll INFL = 1e18;
 const ll MOD = 998244353;
 
-// 考え方はあっているはずだが、なぜか通らない...
-// 正解コードとランダムテストケースを比較してもすべて結果は一致している。
 // https://atcoder.jp/contests/abc222/tasks/abc222_d
 
 int main() {
@@ -39,14 +37,18 @@ int main() {
   int maxNum = 3000;
   vector dp(n, vector<ll>(maxNum + 1));
   if (a[0] == 0) dp[0][0] = 1;
-  reps (i, 1, 3001) {
+  reps (i, 1, maxNum + 1) {
     if (a[0] <= i && i <= b[0]) dp[0][i] = dp[0][i-1] + 1;
     else dp[0][i] = dp[0][i-1];
   }
 
   reps (i, 1, n) {
     reps (j, a[i], maxNum + 1) {
-      if (j <= b[i]) dp[i][j] = (dp[i-1][j] + dp[i][j-1]) % MOD;
+      if (j == 0) {
+        dp[i][j] = 1;
+        continue;
+      }
+      if (a[i] <= j && j <= b[i]) dp[i][j] = (dp[i-1][j] + dp[i][j-1]) % MOD;
       else dp[i][j] = dp[i][j-1];
     }
   }
