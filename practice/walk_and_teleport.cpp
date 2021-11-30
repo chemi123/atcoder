@@ -33,10 +33,7 @@ int main() {
   vector<ll> x(n);
   rep (i, n) cin >> x[i];
   ll ans = 0;
-  reps (i, 1, n) {
-    if ((x[i] - x[i-1]) * a < b) ans += (x[i] - x[i-1]) * a;
-    else ans += b;
-  }
+  reps (i, 1, n) ans += min((x[i] - x[i-1]) * a, b);
   cout << ans << endl;
   return 0;
 }
