@@ -37,22 +37,11 @@ int main() {
   }
   sort(lr.begin(), lr.end(), [](const auto &l, const auto &r) { return l.second < r.second; });
   int ans = 0;
-  rep (i, n) {
-    if (lr[i].first == 0) continue;
-    lr[i].first = 0;
+  ll x = -1;
+  for (const auto [l, r] : lr) {
+    if (l <= x) continue;
     ++ans;
-    ll left = lr[i].second, right = left + d - 1;
-    reps (j, i + 1, n) {
-      if (lr[j].first <= lr[i].second) {
-        lr[j].first = 0;
-        continue;
-      }
-      if (lr[j].first <= right) {
-        lr[j].first = 0;
-        continue;
-      }
-      break;
-    }
+    x = r + d - 1;
   }
   cout << ans << endl;
   return 0;
