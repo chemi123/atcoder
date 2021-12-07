@@ -46,10 +46,7 @@ int main() {
   map<ll, ll> m;
   primeFactrization(m, p);
   ll ans = 1;
-  for (auto& [prime, num] : m) {
-    ll d = num / n;
-    if (d > 0) ans *= pow(prime, d);
-  }
+  for (auto& [prime, num] : m) ans *= pow(prime, num / n);
   cout << ans << endl;
   return 0;
 }
