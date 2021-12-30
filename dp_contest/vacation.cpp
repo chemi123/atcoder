@@ -33,12 +33,6 @@ int main() {
   vector<int> dp(3);
   rep (i, n) {
     int a, b, c; cin >> a >> b >> c;
-    if (i == 0) {
-      dp[0] = a;
-      dp[1] = b;
-      dp[2] = c;
-      continue;
-    }
     vector<int> ndp(3);
     ndp[0] = max(dp[1] + a, dp[2] + a);
     ndp[1] = max(dp[0] + b, dp[2] + b);
