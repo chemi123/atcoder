@@ -44,8 +44,8 @@ int main() {
       else dp[i][j] = min(dp[i-1][j], dp[i-1][j-v[i]] + w[i]);
     }
   }
-  int ans = 0;
-  rep (i, n) rep(j, sum + 1) if (dp[i][j] <= W) ans = max(ans, j);
+  ll ans = 0;
+  rep (i, n) rep(j, sum + 1) if (dp[i][j] <= W) ans = max(ans, (ll)j);
   cout << ans << endl;
   return 0;
 }
