@@ -30,9 +30,9 @@ const ll MOD = 1000000007;
 
 int dfs(const vector<vector<int>>& graph, vector<int>& dp, int current) {
   if (dp[current] > 0) return dp[current];
-  int ans = 0;
-  for (auto next : graph[current]) ans = max(ans, dfs(graph, dp, next) + 1); 
-  return dp[current] = ans;
+  int res = 0;
+  for (auto next : graph[current]) res = max(res, dfs(graph, dp, next) + 1); 
+  return dp[current] = res;
 }
 
 int main() {
