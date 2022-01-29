@@ -56,9 +56,8 @@ int main() {
   }
 
   int ans = 0;
-  int eor = 0;
   vector<bool> used(2 * n);
-  dfs(a, used, ans, eor, n);
+  dfs(a, used, ans, 0, n);
   cout << ans << endl;
   return 0;
 }
