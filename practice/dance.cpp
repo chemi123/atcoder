@@ -28,26 +28,18 @@ const ll MOD = 1000000007;
 
 // https://atcoder.jp/contests/abc236/tasks/abc236_d
 
-void dfs(const vector<vector<int>>& a, vector<pi>& pairs, vector<bool>& used, int& ans, int n) {
+void dfs(const vector<vector<int>>& a, vector<bool>& used, int& ans, int eor, int n) {
   int l = 0;
   while (used[l] && l < 2 * n) ++l;
-  if (l >= 2 * n - 1) return;
+  if (l >= 2 * n) {
+    ans = max(ans, eor);
+    return;
+  }
   used[l] = true;
   reps (r, l + 1, 2 * n) {
     if (used[r]) continue;
     used[r] = true;
-    pairs.emplace_back(pi(l, r));
-    if ((int)pairs.size() == n) {
-      int eor = 0;
-      for (auto p : pairs) {
-        auto [pl, pr] = p;
-        eor ^= a[pl][pr];
-      }
-      ans = max(ans, eor);
-    } else {
-      dfs(a, pairs, used, ans, n);
-    }
-    pairs.pop_back();
+    dfs(a, used, ans, eor ^ a[l][r], n);
     used[r] = false;
   }
   used[l] = false;
@@ -64,9 +56,9 @@ int main() {
   }
 
   int ans = 0;
-  vector<pi> pairs;
+  int eor = 0;
   vector<bool> used(2 * n);
-  dfs(a, pairs, used, ans, n);
+  dfs(a, used, ans, eor, n);
   cout << ans << endl;
   return 0;
 }
