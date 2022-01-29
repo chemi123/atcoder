@@ -41,6 +41,11 @@ void eratosthenes(vector<ll>& primes, ll n) {
   for (int i = 2; i <= n; ++i) if (cnt[i] == 0) primes.emplace_back(i);
 }
 
+// 桁数
+int getDigit(int num) {
+  return log10(num) + 1;
+}
+
 int main() {
   map<ll, ll> s1;
   ll n = 200;
