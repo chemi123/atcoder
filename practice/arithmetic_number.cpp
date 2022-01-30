@@ -26,22 +26,20 @@ const int INF = 1e9;
 const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
-// https://atcoder.jp/contests/abc234/tasks/abc234_e
-
 int main() {
   ll x; cin >> x;
-  set<ll> ans;
-  reps (i, 1, 10) reps (diff, -9, 9) {
+  set<ll> s;
+  reps (i, 1, 10) reps (diff, -9, 10) {
     rep (digit, 18) {
-      string s = to_string(i);
+      string numStr = to_string(i);
       rep (j, digit) {
-        int next = (s.back() - '0') + diff;
-        if (0 <= next && next < 10) s += to_string(next);
-        else break;
+        int next = (numStr.back() - '0') + diff;
+        if (next < 0 || next >= 10) break;
+        numStr += to_string(next);
       }
-      ans.emplace(stoll(s));
+      s.emplace(stoll(numStr));
     }
   }
-  cout << *ans.lower_bound(x) << endl;
+  cout << *s.lower_bound(x) << endl;
   return 0;
 }
