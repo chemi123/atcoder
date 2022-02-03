@@ -27,7 +27,7 @@ const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
 // dp[i]: 石の残りがi個の時、Firstが勝てるかどうか。dp[0] = falseは自明
-// 1 <= i <= kのそれぞれで、 0 <= j < nを全て探索し、dp[i - a[j]]を確認(ただし、i - a[j] >= 0)。もしdp[i - a[j]]にひとつでもfalseがあればそれをSecondに押し付ければ良いからtrueになる。
+// 1 <= i <= kのそれぞれで、0 <= j < nを全て探索し、dp[i - a[j]]を確認(ただし、i - a[j] >= 0)。もしdp[i - a[j]]にひとつでもfalseがあればそれをSecondに押し付ければ良いからtrueになる。
 // https://atcoder.jp/contests/dp/tasks/dp_k
 
 int main() {
