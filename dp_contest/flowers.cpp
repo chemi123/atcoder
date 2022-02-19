@@ -72,7 +72,7 @@ int main() {
   dp[h[0]] = a[0];
   SegmentTree st(dp);
   reps (i, 1, n) {
-    dp[h[i]] = st.query(0, h[i] + 1) + a[i];
+    dp[h[i]] = st.query(0, h[i]) + a[i];
     st.update(h[i], dp[h[i]]);
   }
   ll ans = 0;
