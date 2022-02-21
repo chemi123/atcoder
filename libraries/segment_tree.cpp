@@ -61,6 +61,40 @@ private:
   vector<T> _nodes;
 };
 
+template <typename T>
+class SegmentTree2 {
+public:
+  SegmentTree(vector<T>& v) {
+    _n = 1;
+    while (_n < (int)v.size()) _n *= 2;
+    _nodes.resize(2 * _n - 1, -1);
+
+    for (int i = 0; i <(int)v.size(); ++i) _nodes[_n-1+i] = v[i];
+    for (int i = _n - 2; i >= 0; --i) _nodes[i] = max(_nodes[2*i+1], _nodes[2*i+2]);
+  }
+
+  void update(int index, T val) {
+    int x = index + _n - 1;
+    _nodes[x] = val;
+    while (x > 0) {
+      x = (x - 1) / 2;
+      _nodes[x] = max(_nodes[2*x+1], _nodes[2*x+2]);
+    }
+  }
+
+  T query(int a, int b) { return query_sub(a, b, 0, 0, _n); }
+
+private:
+  T query_sub(int a, int b, int k, int l, int r) {
+    if (r <= a || b <= l) return -1;
+    else if (a <= l && r <= b) return _nodes[k];
+    return max(query_sub(a, b, 2 * k + 1, l, (l + r) / 2), query_sub(a, b, 2 * k + 2, (l + r) / 2, r));
+  }
+
+  int _n;
+  vector<T> _nodes;
+};
+
 int main() {
   return 0;
 }
