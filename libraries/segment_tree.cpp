@@ -26,6 +26,7 @@ const int INF = 1e9;
 const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
+// 区間最小
 template <typename T>
 class SegmentTree {
 public:
@@ -61,6 +62,7 @@ private:
   vector<T> _nodes;
 };
 
+// 区間最大
 template <typename T>
 class SegmentTree2 {
 public:
