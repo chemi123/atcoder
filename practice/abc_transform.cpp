@@ -43,9 +43,8 @@ int main() {
       r = __builtin_popcountll(k);
     }
     ll l = t - r;
-    ll num = (((s[si] - 'A') + l + r * 2) % 3) + 'A';
-    char ans = (char)num;
-    cout << ans << endl;
+    ll ans = (((s[si] - 'A') + l + r * 2) % 3) + 'A';
+    cout << (char)ans << endl;
   }
   return 0;
 }
