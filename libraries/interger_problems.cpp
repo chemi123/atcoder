@@ -31,6 +31,14 @@ void enumerateDivisor(set<ll>& s, ll n) {
   }
 }
 
+// 素数判定
+bool isPrime(ll num) {
+  for (ll i = 2; i * i <= num; ++i) {
+    if (n % i == 0) return false;
+  }
+  return true;
+}
+
 // エラトステネスの篩
 void eratosthenes(vector<ll>& primes, ll n) {
   vector<int> cnt(n + 1);
