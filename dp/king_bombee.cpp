@@ -51,8 +51,6 @@ template<int MOD> ModInt<MOD> operator^(ModInt<MOD> a, unsigned long long k) {
     ModInt<MOD> r = 1; while (k) { if (k & 1) r *= a; a *= a; k >>= 1; } return r; }
 typedef ModInt<998244353> mint;
 
-// https://atcoder.jp/contests/abc244/tasks/abc244_e
-
 int main() {
   int n, m, k, s, t, x; cin >> n >> m >> k >> s >> t >> x; --s, --t, --x;
   vector<vector<int>> graph(n);
@@ -61,21 +59,21 @@ int main() {
     graph[u].emplace_back(v);
     graph[v].emplace_back(u);
   }
-  vector dp(k + 1, vector(n, vector<mint>(2)));
-  dp[0][s][0] = 1;
-  reps (i, 1, k + 1) {
-    rep (j, n) {
-      for (auto from : graph[j]) {
-        if (j == x) {
-          dp[i][j][0] += dp[i-1][from][1];
-          dp[i][j][1] += dp[i-1][from][0];
-        } else {
-          dp[i][j][0] += dp[i-1][from][0];
-          dp[i][j][1] += dp[i-1][from][1];
-        }
+  vector dp(n, vector<mint>(2));
+  dp[s][0] = 1;
+  while (k--) {
+    vector dp2(n, vector<mint>(2));
+    rep (i, n) for (auto from : graph[i]) {
+      if (i == x) {
+        dp2[i][0] += dp[from][1];
+        dp2[i][1] += dp[from][0];
+      } else {
+        dp2[i][0] += dp[from][0];
+        dp2[i][1] += dp[from][1];
       }
     }
+    swap(dp, dp2);
   }
-  cout << dp.back()[t][0] << endl;
+  cout << dp[t][0] << endl;
   return 0;
 }
