@@ -27,8 +27,7 @@ const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
 // pairの2要素の合計が大きい順に並べる
-class PairComparere {
-public:
+struct PairComparere {
   const bool operator() (const pi& left, const pi& right) {
     return left.first + left.second < right.first + right.second;
   }
@@ -47,5 +46,6 @@ int main() {
     pq.pop();
     cout << f << " " << s << endl;
   }
+
   return 0;
 }
