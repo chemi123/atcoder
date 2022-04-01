@@ -28,23 +28,19 @@ const ll MOD = 1000000007;
 
 // https://atcoder.jp/contests/nikkei2019-qual/tasks/nikkei2019_qual_c
 
-struct PairComparere {
-  const bool operator() (const pi& left, const pi& right) {
-    return left.first + left.second < right.first + right.second;
-  }
-};
-
 int main() {
   int n; cin >> n;
-  priority_queue<pi, vector<pi>, PairComparere> pq;
-  rep (i, n) {
-    int a, b; cin >> a >> b;
-    pq.emplace(pi(a, b));
-  }
+  vector<pi> ab(n);
+  rep (i, n) cin >> ab[i].first >> ab[i].second;
+
+  auto comparer = [](const pi& left, const pi& right) {
+    return left.first + left.second > right.first + right.second;
+  };
+  sort(ab.begin(), ab.end(), comparer);
 
   ll ans = 0;
   rep (i, n) {
-    auto [a, b] = pq.top(); pq.pop();
+    auto [a, b] = ab[i];
     if (i % 2 == 0) ans += a;
     else ans -= b;
   }
