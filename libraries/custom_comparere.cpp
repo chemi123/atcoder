@@ -33,7 +33,7 @@ struct PairComparere {
   }
 };
 
-int main() {
+void customPriorityQueueComparer() {
   priority_queue<pi, vector<pi>, PairComparere> pq;
   pq.emplace(pi(2, 5));
   pq.emplace(pi(1, 1));
@@ -46,6 +46,25 @@ int main() {
     pq.pop();
     cout << f << " " << s << endl;
   }
+}
 
+void customVectorSort() {
+  vector<pi> v;
+  v.emplace_back(pi(2, 5));
+  v.emplace_back(pi(1, 1));
+  v.emplace_back(pi(3, 8));
+  v.emplace_back(pi(3, 1));
+  v.emplace_back(pi(5, 2));
+  v.emplace_back(pi(1, 9));
+
+  auto comparer = [](const pi& left, const pi& right) {
+    return left.first + left.second > right.first + right.second;
+  };
+  sort(v.begin(), v.end(), comparer);
+  for (auto& [f, s] : v) cout << f << " " << s << endl;
+}
+
+int main() {
+  customVectorSort();
   return 0;
 }
