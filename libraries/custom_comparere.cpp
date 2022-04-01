@@ -29,7 +29,7 @@ const ll MOD = 1000000007;
 // pairの2要素の合計が大きい順に並べる
 class PairComparere {
 public:
-  constexpr bool operator() (pi& left, pi& right) noexcept {
+  const bool operator() (const pi& left, const pi& right) {
     return left.first + left.second < right.first + right.second;
   }
 };
