@@ -30,7 +30,6 @@ const ll MOD = 1000000007;
 class SccGraph {
 public:
 
-  // できればlate initializeしたい
   SccGraph(vector<vector<int>>& graph) :
     _graph(graph),
     _rgraph(vector<vector<int>>((int)graph.size())),
@@ -72,7 +71,7 @@ private:
   }
 
   vector<vector<int>> _graph, _rgraph;
-  // 例えば[[2, 3, 1], [4], [5, 6]]のような形で強連結成分を入れておくためのコンテナ(一つだけの場合もあり得る)
+  // 例えば[[2, 3, 1], [4], [5, 6]]のような形で強連結成分を入れておくためのコンテナ(要素が一つだけの場合もあり得る)
   vector<vector<int>> _scc;
   vector<int> _label;
   int _n;
