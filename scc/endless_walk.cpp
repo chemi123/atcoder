@@ -155,8 +155,11 @@ int main() {
 
   vector<bool> dp(n);
   for (int i = (int)scc.size() - 1; i >= 0; --i) {
-    if (scc[i].size() > 1) for (auto e : scc[i]) dp[e] = true;
-    else for (auto e : graph[scc[i][0]]) if (scc[sccMap[e]].size() > 1 || dp[e]) {
+    if (scc[i].size() > 1) {
+      for (auto e : scc[i]) dp[e] = true;
+      continue;
+    }
+    for (auto e : graph[scc[i][0]]) if (dp[e]) {
       dp[scc[i][0]] = true;
       break;
     }
