@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <bitset>
+#include <cassert>
 #include <cmath>
 #include <iomanip>
 #include <iostream>
@@ -51,30 +52,28 @@ template<int MOD> ModInt<MOD> operator^(ModInt<MOD> a, unsigned long long k) {
     ModInt<MOD> r = 1; while (k) { if (k & 1) r *= a; a *= a; k >>= 1; } return r; }
 typedef ModInt<998244353> mint;
 
-// https://atcoder.jp/contests/abc242/tasks/abc242_e
-
 int main() {
   int t; cin >> t;
+
+  vector<mint> product(1e6, 1);
+  reps (i, 1, 1e6) product[i] = product[i-1] * 26;
   while (t--) {
+    mint ans = 0;
     int n; cin >> n;
     string s; cin >> s;
-    int half= n / 2;
+    int half = n / 2;
     if (n % 2 == 0) --half;
-    vector<mint> p(half + 1);
-    p[0] = 1;
-    reps (i, 1, half + 1) p[i] = p[i-1] * 26;
-    mint ans = 0;
     rep (i, half + 1) {
       mint tmp = s[i] - 'A';
-      tmp *= p[half-i];
+      tmp *= product[half-i];
       ans += tmp;
     }
-    string halfStr = s.substr(0, n / 2);
-    reverse(halfStr.begin(), halfStr.end());
-    string palindrome = s.substr(0, n / 2);
-    if (n % 2 == 1) palindrome += s[half];
-    palindrome += halfStr;
-    if (palindrome <= s) ans += 1;
+
+    string p = s.substr(0, n / 2), rp = s.substr(0, n / 2);
+    reverse(rp.begin(), rp.end());
+    if (n % 2 == 1) p += s[n/2];
+    p += rp;
+    if (p <= s) ans += 1;
     cout << ans << endl;
   }
   return 0;
