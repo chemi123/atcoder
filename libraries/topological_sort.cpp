@@ -38,16 +38,16 @@ public:
     vector<bool> visit(_n);
     vector<int> res;
     res.reserve(_n);
-    for (int i = 0; i < _n; ++i) dfs(res, visit, i);
+    for (int i = 0; i < _n; ++i) _dfs(res, visit, i);
     reverse(res.begin(), res.end());
     return res;
   }
 
 private:
-  void dfs(vector<int>& v, vector<bool>& visit, int current) {
+  void _dfs(vector<int>& v, vector<bool>& visit, int current) {
     if (visit[current]) return;
     visit[current] = true;
-    for (auto next : _graph[current]) dfs(v, visit, next);
+    for (auto next : _graph[current]) _dfs(v, visit, next);
     v.emplace_back(current);
   }
 
