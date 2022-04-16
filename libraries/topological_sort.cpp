@@ -28,13 +28,13 @@ const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
 // 0indexのグラフでで使用すること
-class TopologicalSort {
+class TsGraph {
 public:
-  TopologicalSort(int n) : _graph(vector<vector<int>>(n)), _n(n) {}
+  TsGraph(int n) : _graph(vector<vector<int>>(n)), _n(n) {}
   
   void add_edge(int a, int b) { _graph[a].emplace_back(b); }
 
-  vector<int> topologicalSort() {
+  vector<int> topological_sort() {
     vector<bool> visit(_n);
     vector<int> res;
     res.reserve(_n);
@@ -60,12 +60,12 @@ private:
 
 int main() {
   int v, e; cin >> v >> e;
-  TopologicalSort ts(v);
+  TsGraph ts(v);
   rep (i, e) {
     int s, t; cin >> s >> t;
     ts.add_edge(s, t);
   }
-  vector<int> ans = ts.topologicalSort();
+  vector<int> ans = ts.topological_sort();
   for (auto e : ans) cout << e << endl;
   return 0;
 }
