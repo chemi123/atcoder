@@ -30,3 +30,25 @@ mint modPow(const mint &a, long long n) {
   if (n & 1) t = t * a;
   return t;
 }
+
+// modを使った簡単なhash
+// vector格納されているユニークな数の集合をhashに変換
+// 衝突する確率はものによるが計算が間違ってなければユニークな数が2 * 10^5で約37%
+// ただし以下の問題で全テストケースが通ったため、もっと低い可能性がある。
+// https://atcoder.jp/contests/abc250/tasks/abc250_e
+// 
+// いずれにせよvector内の集合のhashとして簡単に使うことはできるが、過信は禁物
+const mint BASE = 1007;
+void calcHash(const vector<int>& v, vector<mint>& hash) {
+  set<int> s;
+  s.emplace(v[0]);
+  hash[0] = modPow(BASE, v[0]);
+  reps (i, 1, v.size()) {
+    if (s.find(v[i]) == s.end()) {
+      s.emplace(v[i]);
+      hash[i] = hash[i-1] + modPow(BASE, v[i]);
+    } else {
+      hash[i] = hash[i-1];
+    }
+  }
+}
