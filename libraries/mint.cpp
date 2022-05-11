@@ -22,3 +22,11 @@ template<int MOD> ostream& operator<<(ostream& st, const ModInt<MOD> a) { st << 
 template<int MOD> ModInt<MOD> operator^(ModInt<MOD> a, unsigned long long k) {
     ModInt<MOD> r = 1; while (k) { if (k & 1) r *= a; a *= a; k >>= 1; } return r; }
 typedef ModInt<1000000007> mint;
+
+mint modPow(const mint &a, long long n) {
+  if (n == 0) return 1;
+  auto t = modPow(a, n / 2);
+  t = t * t;
+  if (n & 1) t = t * a;
+  return t;
+}
