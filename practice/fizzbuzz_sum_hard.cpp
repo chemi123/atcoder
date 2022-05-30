@@ -1,0 +1,42 @@
+#include <algorithm>
+#include <bitset>
+#include <cassert>
+#include <cmath>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <queue>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
+#define rep(i, n) for (int i = 0; i < n; ++i)
+#define reps(i, s, n) for (int i = s; i < n; i++)
+#define debug(s, param) std::cerr << s << param << std::endl;
+
+using namespace std;
+using ll = long long;
+using pi = pair<int, int>;
+using pl = pair<ll, ll>;
+
+const int INF = 1e9;
+const ll INFL = 1e18;
+const ll MOD = 1000000007;
+
+// https://atcoder.jp/contests/abc253/tasks/abc253_d
+
+int main() {
+  ll n, a, b; cin >> n >> a >> b;
+  ll c = lcm(a, b);
+  ll na = n / a, nb = n / b, nc = n / c;
+  ll sumA = a * na * (na + 1) / 2;
+  ll sumB = b * nb * (nb + 1) / 2;
+  ll sumC = c * nc * (nc + 1) / 2;
+  ll sum = n * (n + 1) / 2;
+  cout << sum - sumA - sumB + sumC << endl;
+  return 0;
+}
