@@ -60,7 +60,7 @@ int main() {
 
     ans += (sum(num) - sum(num - (k / cnt))) * cnt + (num - (k / cnt)) * (k % cnt);
     cout << ans << endl;
-    return 0;
+    break;;
   }
 
   cout << ans << endl;
