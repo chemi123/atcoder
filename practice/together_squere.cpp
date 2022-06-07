@@ -27,6 +27,8 @@ const int INF = 1e9;
 const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
+// 良解説
+// https://note.com/cell_tower_theta/n/nbb46326458da
 // https://atcoder.jp/contests/abc254/tasks/abc254_d
 
 int main() {
