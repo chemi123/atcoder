@@ -28,20 +28,21 @@ const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
 // bfsを使ったトポロジカルソート
+// けんちょんさんの説明では出次数を使っているが、入次数を使えば逆グラフを使う必要はなかった
+// https://qiita.com/drken/items/996d80bcae64649a6580
 // https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_4_B&lang=ja
 
 int main() {
   int v, e; cin >> v >> e;
-  // 逆グラフ
-  vector<vector<int>> rgraph(v);
+  vector<vector<int>> graph(v);
   
-  // 頂点の出次数
+  // 頂点の入次数
   vector<int> degree(v);
 
   rep (i, e) {
     int s, t; cin >> s >> t;
-    rgraph[t].emplace_back(s);
-    ++degree[s];
+    graph[s].emplace_back(t);
+    ++degree[t];
   }
 
   queue<int> que;
@@ -50,15 +51,15 @@ int main() {
   ans.reserve(v);
 
   while (!que.empty()) {
-    // sinkとは出次数0の頂点をを意味する
-    int sink = que.front(); que.pop();
-    ans.emplace_back(sink);
-    for (auto next : rgraph[sink]) {
+    // 入次数0の頂点
+    int current = que.front(); que.pop();
+    ans.emplace_back(current);
+    for (auto next : graph[current]) {
       --degree[next];
+      // 入次数0ならpriority queueに入れる
       if (!degree[next]) que.emplace(next);
     }
   }
-  reverse(ans.begin(), ans.end());
 
   for (auto e : ans) cout << e << endl;
 
