@@ -56,7 +56,7 @@ int main() {
     ans.emplace_back(current);
     for (auto next : graph[current]) {
       --degree[next];
-      // 入次数0ならpriority queueに入れる
+      // 入次数0ならqueueに入れる
       if (!degree[next]) que.emplace(next);
     }
   }
