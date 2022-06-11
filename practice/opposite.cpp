@@ -27,6 +27,7 @@ const int INF = 1e9;
 const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
+// 原点に平行移動してローテートしてからまた平行移動する素朴な解法
 // https://atcoder.jp/contests/abc197/tasks/abc197_d
 
 pair<long double, long double> rotate(long double x, long double y, long double radian) {
