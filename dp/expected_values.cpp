@@ -26,6 +26,7 @@ const int INF = 1e9;
 const ll INFL = 1e18;
 const ll MOD = 1000000007;
 
+// 解説 https://compro.tsutaj.com//archive/180220_probability_dp.pdf
 // https://yukicoder.me/problems/no/65
 
 int main() {
